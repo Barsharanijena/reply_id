@@ -2,7 +2,8 @@ import os
 import httpx
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(".env.prod")
+
 BEARER_TOKEN = os.getenv("BEARER_TOKEN")
 HEADERS = {"Authorization": f"Bearer {BEARER_TOKEN}"}
 
@@ -33,7 +34,7 @@ def fetch_reply_tweet_ids_extended(tweet_id: str):
         raise Exception(f"Twitter API error: {response.text}")
 
     all_tweets = response.json().get("data", [])
-
+   
     reply_ids = [
         tweet["id"]
         for tweet in all_tweets
